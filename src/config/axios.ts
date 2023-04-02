@@ -15,10 +15,11 @@ const APIGateway = axios.create({
 });
 
 APIGateway.interceptors.request.use(
-  function (config: InternalAxiosRequestConfig) {
+  function (config: InternalAxiosRequestConfig<any>) {
     const token = Cookie.get(COOKIES.TOKEN);
     if (token) {
-      return (config.headers.Authorization = `Bearer ${token}`);
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
     }
     return config;
   },
@@ -28,7 +29,7 @@ APIGateway.interceptors.request.use(
 );
 
 APIGateway.interceptors.response.use(
-  function (response: AxiosResponse) {
+  function (response: AxiosResponse<any>) {
     return response.data;
   },
   function (error) {

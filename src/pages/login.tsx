@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Heading, Input, Button, Text } from "@chakra-ui/react";
-import Error from "next/error";
+import Error, { ErrorProps } from "next/error";
 import { authService } from "@/services/authService";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
@@ -13,17 +13,26 @@ function LoginPage() {
       const token = await authService.login("john@mail.com", "changeme");
       Cookie.set(COOKIES.TOKEN, token.access_token);
       router.push("/profile");
-    } catch (error: Error) {
+    } catch (error: any) {
       throw new Error(error);
     }
   };
 
   return (
-    <Flex direction={"column"}>
-      <Heading fontSize='xl'>Login</Heading>
-      <Input value='john@mail.com' disabled />
-      <Input value='changeme' disabled />
-      <Button onClick={handleLogin}>Login</Button>
+    <Flex
+      direction={"column"}
+      height={"full"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      gap={10}
+    >
+      <Heading fontSize="3xl">Login</Heading>
+      <Text>Using the default account to login</Text>
+      <Input value="john@mail.com" style={{ pointerEvents: "none" }} />
+      <Input value="changeme" style={{ pointerEvents: "none" }} />
+      <Button bg={"blue.700"} w={"full"} onClick={handleLogin}>
+        Login
+      </Button>
     </Flex>
   );
 }

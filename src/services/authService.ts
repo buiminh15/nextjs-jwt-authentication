@@ -1,11 +1,11 @@
 import Services from "@/config/axios";
-import { URL_PATHS } from "@/constants";
-import { Token } from "@/types/user";
+import { API_PATHS, URL_PATHS } from "@/constants";
+import { Token, User } from "@/types/user";
 
 const authService = {
   login: (email: string, password: string): Promise<Token> =>
-    Services.post(URL_PATHS.LOGIN, { email, password }),
-  getProfile: () => Services.get(URL_PATHS.PROFILE),
+    Services.post(API_PATHS.LOGIN, { email, password }),
+  getProfile: (): Promise<User> => Services.get(API_PATHS.PROFILE),
 };
 
 export { authService };
