@@ -11,6 +11,9 @@ import {
   Grid,
   GridItem,
   SimpleGrid,
+  VStack,
+  Button,
+  useColorMode,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -36,18 +39,24 @@ const ROUTES = [
 ];
 
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <SimpleGrid columns={{ sm: 1, md: 3 }} gridAutoRows={"1fr"} spacing={10}>
-      {ROUTES.map((r) => (
-        <Card key={`grid-item-${r.id}`}>
-          <Link href={r.url}>
-            <CardHeader>{r.page}</CardHeader>
-            <CardBody>
-              <Text>{r.desc}</Text>
-            </CardBody>
-          </Link>
-        </Card>
-      ))}
-    </SimpleGrid>
+    <VStack spacing={10}>
+      <Button alignSelf={"flex-end"} onClick={toggleColorMode}>
+        Toggle {colorMode === "light" ? "Dark" : "Light"}
+      </Button>
+      <SimpleGrid columns={{ sm: 1, md: 3 }} gridAutoRows={"1fr"} spacing={10}>
+        {ROUTES.map((r) => (
+          <Card key={`grid-item-${r.id}`}>
+            <Link href={r.url}>
+              <CardHeader>{r.page}</CardHeader>
+              <CardBody>
+                <Text>{r.desc}</Text>
+              </CardBody>
+            </Link>
+          </Card>
+        ))}
+      </SimpleGrid>
+    </VStack>
   );
 }
