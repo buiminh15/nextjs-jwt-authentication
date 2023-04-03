@@ -1,6 +1,14 @@
 import { COOKIES, URL_PATHS } from "@/constants";
 import { authService } from "@/services/authService";
-import { Button, Flex, Grid, GridItem, Spacer, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  GridItem,
+  HStack,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import useSWR from "swr";
 import Cookie from "js-cookie";
@@ -22,12 +30,21 @@ function ProfilePage() {
     Cookie.remove(COOKIES.TOKEN);
     router.push("/");
   };
+
+  const handleBackToHome = () => {
+    router.push("/");
+  };
   return (
     <div>
-      <Flex alignItems={"center"}>
+      <Flex gap={10} direction={"column"}>
         <Text> ProfilePage</Text>
-        <Spacer />
-        <Button onClick={handleLogout}>Logout</Button>
+        <HStack>
+          <Button variant={"ghost"} onClick={handleBackToHome}>
+            Back to Home
+          </Button>
+          <Spacer />
+          <Button onClick={handleLogout}>Logout</Button>
+        </HStack>
       </Flex>
 
       <Grid
