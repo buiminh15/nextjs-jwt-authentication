@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/components/ErrorBoundary";
 import "@/styles/globals.css";
 import { ChakraProvider, Container } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
@@ -11,10 +12,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <Container
         paddingBlockStart={6}
         width={"full"}
-        height="full"
+        height='full'
         className={montserrat.className}
       >
-        <Component {...pageProps} />
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
       </Container>
     </ChakraProvider>
   );

@@ -51,6 +51,10 @@ export default function Home() {
     setLoggedIn(isAuthenticated);
   }, []);
 
+  const handleThrowError = () => {
+    throw new Error("Oops! Something went wrong.");
+  };
+
   return (
     <VStack spacing={10}>
       <Button alignSelf={"flex-end"} onClick={toggleColorMode}>
@@ -69,6 +73,7 @@ export default function Home() {
           </Card>
         ))}
       </SimpleGrid>
+      <Button onClick={handleThrowError}>Throw error</Button>
     </VStack>
   );
 }
