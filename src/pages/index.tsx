@@ -18,6 +18,7 @@ import {
 import Link from "next/link";
 import Cookie from "js-cookie";
 import { COOKIES } from "@/constants";
+import { useEffect, useState } from "react";
 
 const ROUTES = [
   {
@@ -42,15 +43,20 @@ const ROUTES = [
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const isAuthenticated = !!Cookie.get(COOKIES.TOKEN);
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const isAuthenticated = !!Cookie.get(COOKIES.TOKEN);
+    setLoggedIn(isAuthenticated);
+  }, []);
+
   return (
     <VStack spacing={10}>
       <Button alignSelf={"flex-end"} onClick={toggleColorMode}>
         Toggle {colorMode === "light" ? "Dark" : "Light"}
       </Button>
-      <Text>
-        {isAuthenticated ? "You are logged in" : "You aren't logged in now"}
-      </Text>
+      <Text>{loggedIn ? "You are logged in" : "You aren't logged in now"}</Text>
       <SimpleGrid columns={{ sm: 1, md: 3 }} gridAutoRows={"1fr"} spacing={10}>
         {ROUTES.map((r) => (
           <Card key={`grid-item-${r.id}`}>
