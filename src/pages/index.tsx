@@ -19,6 +19,7 @@ import Link from "next/link";
 import Cookie from "js-cookie";
 import { COOKIES } from "@/constants";
 import { useEffect, useState } from "react";
+import MyComponent from "@/components/MyComponent";
 
 const ROUTES = [
   {
@@ -73,7 +74,6 @@ export default function Home() {
           </Card>
         ))}
       </SimpleGrid>
-      <Button onClick={handleThrowError}>Throw error</Button>
     </VStack>
   );
 }
